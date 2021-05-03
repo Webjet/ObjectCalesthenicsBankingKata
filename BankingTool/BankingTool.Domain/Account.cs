@@ -38,10 +38,12 @@ namespace BankingTool.Domain
 
         private string GetStatement()
         {
-            var sign = transactionList[0].Value > 0
-                ? "+"
-                : string.Empty;
-            return sign + transactionList[0];
+            var statement = transactionList[0].ToString();
+            if (transactionList[0].Value > 0)
+            {
+                statement = "+" + statement;
+            }
+            return statement;
         }
 
         public void Deposit(Money money)
