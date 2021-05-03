@@ -5,8 +5,8 @@ namespace BankingTool.Domain
     public record Money(int Value)
     {
         internal Money Substract(Money money) =>
-            new Money(this.Value - money.Value);
-        
+            this with { Value = this.Value - money.Value };
+
         public override string ToString() => ""+Value;
 
         internal Money ToNegative()
@@ -15,6 +15,6 @@ namespace BankingTool.Domain
         }
 
         internal Money Add(Money money) =>
-            new Money(this.Value + money.Value);
+            this with { Value = this.Value + money.Value };
     }
 }
