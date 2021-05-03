@@ -24,15 +24,34 @@ namespace BankingTool.Test
 
         [Fact]
         public void Display_deposit()
-        {
-            
-            var expected =  "Date       ||  Amount  ||  Balance"+ Environment.NewLine + 
+        {            
+            var expected =  "Date       ||  Amount  ||  Balance" + 
+                                    Environment.NewLine + 
                             "24.12.2015 ||  +500    ||      500";
             Money money = new(500);
 
             Account sut = new();
 
             sut.Deposit(money);
+
+            var result = sut.PrintStatement();
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Make_withdraw()
+        {
+            var expected =  "Date       ||  Amount  ||  Balance" +
+                                    Environment.NewLine +
+                            "24.12.2015 ||  +500    ||      500" +
+                                    Environment.NewLine +
+                            "23.8.2016  ||  -100    ||      400";
+
+            Money money = new(100);
+
+            Account sut = new();
+            sut.Withdraw(money);
 
             var result = sut.PrintStatement();
 
