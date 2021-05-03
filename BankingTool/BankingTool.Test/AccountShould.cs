@@ -42,15 +42,14 @@ namespace BankingTool.Test
         [Fact]
         public void Make_withdraw()
         {
+            var balance = new Money(500);
             var expected =  "Date       ||  Amount  ||  Balance" +
-                                    Environment.NewLine +
-                            "24.12.2015 ||  +500    ||      500" +
                                     Environment.NewLine +
                             "23.8.2016  ||  -100    ||      400";
 
             Money money = new(100);
 
-            Account sut = new();
+            Account sut = new(balance);
             sut.Withdraw(money);
 
             var result = sut.PrintStatement();

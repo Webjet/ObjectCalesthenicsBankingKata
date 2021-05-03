@@ -16,6 +16,11 @@ namespace BankingTool.Domain
             balance = new BankStatementHeading("Balance");
         }
 
+        public Account(Money money): this()
+        {
+            this.money = money;
+        }
+
 
         public string PrintStatement()
         {
@@ -23,7 +28,7 @@ namespace BankingTool.Domain
             {
                 return "Date       ||  Amount  ||  Balance" +
                                     Environment.NewLine +
-                            "24.12.2015 ||  +500    ||      500";
+                            $"24.12.2015 ||  +500    ||      {money.Value}";
             }
             return string.Join(" ", date, amount, balance);
         }
@@ -35,7 +40,7 @@ namespace BankingTool.Domain
 
         public void Withdraw(Money money)
         {
-            
+            this.money = this.money.Substract(money);
         }
     }
 }
