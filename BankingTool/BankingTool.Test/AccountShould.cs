@@ -45,7 +45,7 @@ namespace BankingTool.Test
             var balance = new Money(500);
             var expected =  "Date       ||  Amount  ||  Balance" +
                                     Environment.NewLine +
-                            "23.8.2016  ||  -100    ||      400";
+                            "24.12.2015 ||  -100    ||      400";
 
             Money money = new(100);
 

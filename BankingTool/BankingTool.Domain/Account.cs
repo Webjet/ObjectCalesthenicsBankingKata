@@ -1,46 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BankingTool.Domain
 {
     public class Account
     {
-        public readonly BankStatementHeading date;
-        private readonly BankStatementHeading amount;
-        private readonly BankStatementHeading balance;
-        private Money money;
+        public readonly BankStatementHeading dateHeader;
+        private readonly BankStatementHeading amountHeader;
+        private readonly BankStatementHeading balanceHeader;
+        private Money balance = new Money(0);
+        private List<Money> transactionList = new List<Money>();
 
         public Account()
         {
-            date = new BankStatementHeading("Date");
-            amount = new BankStatementHeading("Amount");
-            balance = new BankStatementHeading("Balance");
+            dateHeader = new BankStatementHeading("Date");
+            amountHeader = new BankStatementHeading("Amount");
+            balanceHeader = new BankStatementHeading("Balance");
         }
 
         public Account(Money money): this()
         {
-            this.money = money;
+            this.balance = money;
         }
 
 
         public string PrintStatement()
         {
-            if(money != null)
+            if(transactionList.Any())
             {
                 return "Date       ||  Amount  ||  Balance" +
                                     Environment.NewLine +
-                            $"24.12.2015 ||  +500    ||      {money.Value}";
+                            $"24.12.2015 ||  {GetStatement()}    ||      {balance}";
             }
-            return string.Join(" ", date, amount, balance);
+            return string.Join(" ", dateHeader, amountHeader, balanceHeader);
+        }
+
+        private string GetStatement()
+        {
+            var sign = transactionList[0].Value > 0
+                ? "+"
+                : string.Empty;
+            return sign + transactionList[0];
         }
 
         public void Deposit(Money money)
         {
-            this.money = money;
+            transactionList.Add(money);
+            this.balance = balance.Add(money);
         }
 
         public void Withdraw(Money money)
         {
-            this.money = this.money.Substract(money);
+            var withdraw = money.ToNegative();
+            transactionList.Add(withdraw);
+            this.balance = this.balance.Add(withdraw);
         }
     }
 }
