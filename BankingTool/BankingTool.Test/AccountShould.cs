@@ -21,5 +21,22 @@ namespace BankingTool.Test
 
             Assert.Equal(exptected, result);
         }
+
+        [Fact]
+        public void Display_deposit()
+        {
+            
+            var expected =  "Date       ||  Amount  ||  Balance"+ Environment.NewLine + 
+                            "24.12.2015 ||  +500    ||      500";
+            Money money = new(500);
+
+            Account sut = new();
+
+            sut.Deposit(money);
+
+            var result = sut.PrintStatement();
+
+            Assert.Equal(expected, result);
+        }
     }
 }

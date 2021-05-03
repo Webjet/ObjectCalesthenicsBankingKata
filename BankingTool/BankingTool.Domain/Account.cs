@@ -20,5 +20,10 @@ namespace BankingTool.Domain
         {
             return string.Join(" ", date, amount, balance);
         }
+
+        public void Deposit(Money money)
+        { 
+        
+        }
     }
 }
