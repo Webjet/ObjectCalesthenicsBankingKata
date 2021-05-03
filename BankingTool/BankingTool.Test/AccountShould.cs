@@ -12,5 +12,14 @@ namespace BankingTool.Test
             var sut = new Account();
             Assert.NotNull(sut);
         }
+        [Fact]
+        public void PrintHeading()
+        {
+            var exptected = "Date Amount Balance";
+            var sut = new Account();
+            var result = sut.PrintStatement();
+
+            Assert.Equal(exptected, result);
+        }
     }
 }
